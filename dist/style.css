@@ -1,0 +1,210 @@
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  }
+
+html, body {
+  height: 100%;
+  }
+
+::-webkit-scrollbar {width:12px}
+::-webkit-scrollbar-thumb {background: #222;}
+::-webkit-scrollbar-track {background: transparent}
+
+::selection {
+  background: #222;
+  color: white;
+  }
+::-moz-selection {
+  background: #222;
+  color: white;
+  }
+
+body * {
+  transform-style: preserve-3d; /* am i doing this wrong? */
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+body {
+  background: #fb8794;
+  color: #222;
+  font-family: 'Ubuntu', sans-serif;
+  perspective: 70em;/*in your face*/
+  }
+
+h1, p {
+  margin: 5% 0;
+  }
+
+.book {
+  	height: 70vh;
+    max-height: 640px;
+    min-height: 300px;
+    width: 900px;
+    background-image: linear-gradient( 
+90deg
+ , hsl(353deg 15% 13%), hsl(0deg 0% 0%), hsl(7deg 37% 56% / 85%) 90% ), url(RBrOJRpZZdLM);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 7% auto;
+    border: 10px solid hsl(47deg 5% 17% / 70%);
+    border-radius: 5px;
+    box-shadow: 16px 19px 8px 2px rgb(0 0 0 / 32%);
+    transform: rotateX(
+		7deg
+		) rotateY(
+		355deg
+		);
+		z-index: 1000;
+  }
+
+.book::after{
+	  z-index: -16;
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #ca4da912;
+    margin: 3px -10px;
+}
+
+.page {
+  height: 100%;
+  width: 50%;
+  border-right: 10px solid transparent;
+  position: absolute;
+  top: 0; right: 0;
+  transform-origin: 0 50%;
+  transition: 2s ease;
+	border: 9px solid #fff;
+  
+  }
+  [class*='side'] {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color:#fff;
+    background-image: url('');
+    background-size: 100% 100%;
+    backface-visibility: hidden;
+    overflow: auto;
+    padding: 5% 8%;
+		transform: scale(1.008);
+    }
+  .side-1 {
+    z-index: 2;
+    box-shadow: inset 50px 0 50px rgb(0 0 0 / 7%);
+    transition: .5s;
+    }
+  .side-2 {
+    background-color: #dedede;
+		border: 9px solid #fff;
+    transform:
+      rotateY(180deg);
+    box-shadow: inset 50px 0 50px rgb(0 0 0 / 7%);
+    }
+  .flipped > .side-1 {
+    box-shadow: inset 50px 0 50px rgb(0 0 0 / 7%);   
+    transition: .6s;
+    }
+  .flipped > [class*='side'] {
+    pointer-events: auto;
+    }
+.page:after {
+  width: 100px;
+  height: 50px;
+  background-color: #151515;
+  position: absolute;
+  top: 0; bottom: 0; right: -100px;
+  margin: auto;
+  color: white;
+  text-shadow: 0 -1px 0 #222;
+  line-height: 50px;
+  text-align: center;
+  font-family: monospace;
+  content: 'нажми';
+  animation: hide .8s linear;
+  }
+  .page.flipped:after {
+    content: 'нажми';
+    transform:
+      rotateY(180deg);
+    pointer-events: auto;
+    }
+  /* to hide on flip animation */
+  @keyframes hide {
+    0% {opacity: 0;}
+    85% {opacity: 0;}
+    100% {opacity: 1;}
+    }
+/* first-top last-bottom stack order */
+#page-1 {
+  z-index: 4;
+  }
+#page-2 {
+  z-index: 3;
+  }
+#page-3 {
+  z-index: 2;
+  }
+#page-4 {
+  z-index: 1;
+  }
+.flipped {
+  transform:
+    rotateY(-180deg);
+  pointer-events: none;
+  /*animation: flip .3s linear;
+  animation-fill-mode: forwards;*/
+  }
+  /* reverse z-stack order */
+  #page-1.flipped  {
+    z-index: 1;
+    }
+  #page-2.flipped  {
+    z-index: 2;
+    }
+  #page-5.flipped  {
+    z-index: 3;
+    }
+  #page-4.flipped {
+    z-index: 4;
+    }
+  
+.no-anim,
+  .no-anim:after {
+  animation:none;/* disable animation when page loads */
+  }
+@keyframes flip {
+  to {
+    transform:
+      rotateY(-180deg);    
+    }
+  }
+@keyframes unflip {
+  from {
+    transform:
+      rotateY(-180deg);    
+    }
+  to {
+    transform:
+      rotateY(0deg);    
+    }
+  }
+
+canvas{
+	z-index: -1;
+	left: 0px;
+	position: fixed;
+	top: 0px;
+}
+
+iframe{
+	height: 200px;
+}
